@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<title>Loggged in</title>
+<script src="../bootstrap-4.5.3-dist/jquery.js"></script>
+<script src="../bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style>
+@font-face{
+    font-family: 'Gilroy';
+    src: url(./Gilroy-Regular.woff) format(woff);
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Gilroy', sans-serif;
+}
+
+html{
+    font-size: 16px;
+}
+.hide{
+    display: none;
+}
+.fadeIn{
+    animation: fade 0.5s ease-in-out;
+}
+@keyframes fade{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    max-width: 1200px;
+    width: 100%;
+    height: 60px;
+
+    margin: 0 auto;
+
+    background-color: #F3F2F2;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+.logo img{
+    width: 60px;
+}
+.logo p {
+    font-weight: bold;
+    color: #6a149b;
+}
+
+nav ul{
+    display: flex;
+    align-items: center;
+}
+nav ul li{
+    list-style: none;
+}
+nav ul li:last-child{
+    padding-right: 20px;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #6a149b;
+    padding: 10px;
+}
+
+main{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stats{
+    width: 100%;
+    background-image:  url(https://images.ctfassets.net/u4vv676b8z52/SRx6bBLDN9GRa3WjJ957j/64356fe50a6ab6ece26170a29d161234/coronavirus-hero2-compressor.jpg?fm=jpg&q=80);
+    background-size: cover;
+}
+
+.latest-report{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 50px;
+
+    color: #FFF;
+}
+
+.country,
+.total-cases,
+.recovered,
+.deaths{
+    height: 100px;
+}
+
+.name{
+    font-size: 2.2em;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.change-country{
+    cursor: pointer;
+}
+
+.title{
+    font-size: 1.3em;
+}
+.total-cases .value{
+    font-size: 2em;
+    font-weight: bold;
+    color: #6400ef;
+}
+.recovered .value{
+    font-size: 2em;
+    font-weight: bold;
+    color: #009688;
+}
+.deaths .value{
+    font-size: 2em;
+    font-weight: bold;
+    color: #ff1100;
+}
+.new-value{
+    font-size: 1.3em;
+    
+}
+.chart{
+    width: 80%;
+    height: 70vh;
+    min-height: 500px;
+
+    margin: 0 auto;
+    padding: 50px 0;
+}
+.search-country{
+    position: relative;
+    top: 10px;
+}
+.search-box{
+    position: absolute;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 400px;
+    height: 30px;
+
+    background-color: #111;
+
+    z-index: 1;
+}
+.search-box input{
+    width: 360px;
+    height: 25px;
+
+    border: none;
+
+    background-color: transparent;
+    color: #FFF;
+
+    padding-left: 15px;
+
+    font-size: 1.1em;
+}
+.search-box img{
+    width: 20px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.country-list{
+    display: flex;
+
+    position: absolute;
+    top: 30px;
+
+    width: 400px;
+    height: 300px;
+
+    background-color: #111;
+    opacity: 0.9;
+
+    overflow-y: scroll;
+}
+
+.country-list ul{
+    width: 100%;
+}
+
+.country-list ul li{
+    list-style: none;
+    cursor: pointer;
+    padding: 10px;
+    color: #FFF;
+}
+.country-list ul li:hover{
+    border-left: 1px solid #FFF;
+}
+
+.country-list::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .country-list::-webkit-scrollbar-track {
+    background: #111;
+  }
+  
+  /* Handle */
+  .country-list::-webkit-scrollbar-thumb {
+    background: #F1F1F1;
+  }
+  
+  /* Handle on hover */
+  .country-list::-webkit-scrollbar-thumb:hover {
+    background: #FFF;
+  }
+
+
+@media screen and (max-width: 600px){
+    .latest-report{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+body {
+  background: #1a1919;
+ 
+}
+
+#button-addon1 {
+  color: #ffc371;
+}
+
+i {
+  color: #ffc371;
+}
+
+.form-control::placeholder {
+  font-size: 0.95rem;
+  color: rgb(255, 0, 0);
+  font-style: italic;
+}
+
+.form-control.shadow-0:focus {
+  box-shadow: none;
+}
+
+
+    *{
+
+      margin: 0;
+
+      padding: 0;
+
+      box-sizing: border-box;
+
+    }
+
+    a{
+
+      text-decoration: none;
+
+    }
+
+    /* about ronak */
+
+    .space{
+
+      height: 30rem;
+
+      text-align: center;
+      
+      font-family:Sofia;
+
+    }
+
+    .space img{
+
+      width: 10rem;
+
+      height: 10rem;
+
+      border-radius: 50%;
+
+      margin: 40px;
+
+    }
+
+    /* footer start */
+
+    footer{
+
+      background-color: #3a3a3a;
+
+      text-align: center;
+
+      padding-bottom: 15px;
+
+    }
+
+    /* social media icons */
+
+    .sm-handle{
+
+      display: flex;
+
+      padding-top: 2rem;
+
+      justify-content: center;
+
+    }
+
+    .sm-button{
+
+    margin: 0px 10px 0px;
+
+      border: 1px solid #bababa;
+
+      border-radius: 100%;
+
+      width: 2rem;
+
+      height: 2rem;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      cursor: pointer;
+
+    }
+
+    .sm-button:hover{
+
+      background: linear-gradient(to right, #6500ff, #a400ff  );
+
+    }
+
+    .fab{
+
+    color: #fff;
+
+    font-size: 16px;
+
+    }
+
+    /* footer all links*/
+
+    .footer-links{
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      color: white;
+
+      letter-spacing: 1.5px;
+
+      word-spacing: 2px;
+
+    }
+
+    .menu-title{
+
+      margin-bottom: 10px;
+
+    }
+
+    .menu{
+
+      margin-bottom: 20px;
+
+      margin-top: 10px;
+
+    }
+
+    .menu-links ,.other-links{
+
+      display: block;
+
+      font-family: Roboto;
+
+      color: #d5d5d5;
+
+      cursor: pointer;
+
+    }
+
+    .menu-links:hover{
+
+      color: #6500ff;
+
+    }
+
+    .other-links:hover{
+
+      color: #6500ff;
+
+    }
+
+    /* copyright area */
+
+    .copyright{
+
+      font-size: 10px;
+
+      color: white;
+
+      letter-spacing: 1.5px;
+
+      word-spacing: 2px;
+
+    }
+
+    .copyright a{
+
+      color: #fff;
+
+      font-size: 12px;
+
+      cursor: pointer;
+
+    }
+
+    /* screen change */
+
+    @media(max-width :700px){
+
+      .footer-links{
+
+      grid-template-columns: 1fr;
+
+    }
+
+    }
+
+
+</style>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><h4>Pandemic 19</h4></a>
+    </div>
+    {{!-- <ul class="nav navbar-nav">
+      <li><a href="/blog">Crisis</a></li>
+      <li><a href="/blog">India Affected</a></li>
+      <li><a href="/blog">Help</a></li>
+      <li><a href="/logout">Logout</a></li>
+      <li><a><h4 style="color: #ff1100;">Hello {{ users }} , wear mask & stay safe.</h4></a></li>
+    </ul> --}}
+     <ul class="nav navbar-nav">
+      <li class="active"><a href="/">Home</a></li>
+       <li><a href="/about">About</a></li>
+        <li><a href="/overview">Overview</a></li>
+      <li><a href="/blog">Crisis</a></li>
+      <li><a href="/resource">Resources</a></li>
+      <li><a href="/faq">FAQ</a></li>
+     
+       <li><a><h4 style="color: #ff1100;">Hello {{ users }},wear mask & stay safe .</h4></a></li>
+       &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;&nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;&nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;&nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;&nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;
+       <li><a href="/logout">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+    <header>
+      <div class="logo">
+        <img src="http://covidcp.org/images/logo-icononly.png" alt="logo" >
+        <h3><b><center>COUNTRY WISE COVID TRACKER </center></b></h3>
+      </div>
+    </header>
+
+    <main>
+      <div class="stats">
+        <div class="latest-report">
+          <div class="country">
+            <div class="name">Loading.......</div>
+            <div class="change-country">Click <u>Here</u> for Search by Country</div>
+            <div class="search-country hide">
+              <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search Country...">
+                <img class="close" src="resources/img/close.svg" alt="" >
+              </div>
+              <div class="country-list"></div>
+            </div>
+          </div>
+          <div class="total-cases">
+            <div class="title">Total Cases</div>
+            <div class="value">0</div>
+            <div class="new-value">+0</div>
+          </div>
+          <div class="recovered">
+            <div class="title">Recovered</div>
+            <div class="value">0</div>
+            <div class="new-value">+0</div>
+          </div>
+          <div class="deaths">
+            <div class="title">Deaths</div>
+            <div class="value">0</div>
+            <div class="new-value">+0</div>
+          </div>
+        </div>
+        <div class="chart">
+          <canvas id="axes_line_chart"></canvas>
+        </div>
+      </div>
+
+ <footer>
+
+
+              <!-- Social media icons line Start -->
+
+          <div class="footer-links">
+
+            <div class="menu">
+
+              <h4 class="menu-title">Account</h4>              
+
+              <a href="/sign_up" class="menu-links">Sign up</a>
+
+              <a href="/login" class="menu-links">Log in</a>
+
+              <a href="/logout" class="menu-links">Logout</a>
+
+            </div>
+
+            <div class="menu">
+
+              <h4 class="menu-title">Other Pages</h4>
+
+              <a href="/about" class="other-links">About</a>
+
+              <a href="/resource" class="other-links">Resources</a>
+
+              <a href="/faq" class="other-links">FAQ</a>
+
+              <a href="/overview" class="other-links">Overview</a>
+
+            </div>
+
+         </div>
+
+         <!-- copyright area -->
+
+            <p class="copyright">&copy Copyright 2021 | <a href="">Pandemic 19  || Covid Tracker</a></p>
+
+  </footer>
+    </main>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+      integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      language="JavaScript"
+      src="http://www.geoplugin.net/javascript.gp"
+      type="text/javascript"
+    ></script>
+    <script>
+
+      // ALL COUNTRY NAMES WITH THEIR ISO CODE
+let country_list = [
+    { name: 'USA', code: 'US' },
+    { name: 'Spain', code: 'ES' },
+    { name: 'Italy', code: 'IT' },
+    { name: 'France', code: 'FR' },
+    { name: 'Germany', code: 'DE' },
+    { name: 'UK', code: 'GB' },
+    { name: 'Turkey', code: 'TR' },
+    { name: 'Iran', code: 'IR' },
+    { name: 'Russia', code: 'RU' },
+    { name: 'Belgium', code: 'BE' },
+    { name: 'Brazil', code: 'BR' },
+    { name: 'Canada', code: 'CA' },
+    { name: 'Netherlands', code: 'NL' },
+    { name: 'Switzerland', code: 'CH' },
+    { name: 'Portugal', code: 'PT' },
+    { name: 'India', code: 'IN' },
+    { name: 'Ireland', code: 'IE' },
+    { name: 'Austria', code: 'AT' },
+    { name: 'Peru', code: 'PE' },
+    { name: 'Sweden', code: 'SE' },
+    { name: 'Japan', code: 'JP' },
+    { name: 'S. Korea', code: 'KR' },
+    { name: 'Chile', code: 'CL' },
+    { name: 'Saudi Arabia', code: 'SA' },
+    { name: 'Poland', code: 'PL' },
+    { name: 'Ecuador', code: 'EC' },
+    { name: 'Romania', code: 'RO' },
+    { name: 'Pakistan', code: 'PK' },
+    { name: 'Mexico', code: 'MX' },
+    { name: 'Denmark', code: 'DK' },
+    { name: 'Norway', code: 'NO' },
+    { name: 'UAE', code: 'AE' },
+    { name: 'Czechia', code: 'CZ' },
+    { name: 'Australia', code: 'AU' },
+    { name: 'Singapore', code: 'SG' },
+    { name: 'Indonesia', code: 'ID' },
+    { name: 'Serbia', code: 'RS' },
+    { name: 'Philippines', code: 'PH' },
+    { name: 'Ukraine', code: 'UA' },
+    { name: 'Qatar', code: 'QA' },
+    { name: 'Malaysia', code: 'MY' },
+    { name: 'Belarus', code: 'BY' },
+    { name: 'Dominican Republic', code: 'DO' },
+    { name: 'Panama', code: 'PA' },
+    { name: 'Finland', code: 'FI' },
+    { name: 'Colombia', code: 'CO' },
+    { name: 'Luxembourg', code: 'LU' },
+    { name: 'South Africa', code: 'ZA' },
+    { name: 'Egypt', code: 'EG' },
+    { name: 'Argentina', code: 'AR' },
+    { name: 'Morocco', code: 'MA' },
+    { name: 'Thailand', code: 'TH' },
+    { name: 'Algeria', code: 'DZ' },
+    { name: 'Moldova', code: 'MD' },
+    { name: 'Bangladesh', code: 'BD' },
+    { name: 'Greece', code: 'GR' },
+    { name: 'Hungary', code: 'HU' },
+    { name: 'Kuwait', code: 'KW' },
+    { name: 'Bahrain', code: 'BH' },
+    { name: 'Croatia', code: 'HR' },
+    { name: 'Iceland', code: 'IS' },
+    { name: 'Kazakhstan', code: 'KZ' },
+    { name: 'Uzbekistan', code: 'UZ' },
+    { name: 'Estonia', code: 'EE' },
+    { name: 'Iraq', code: 'IQ' },
+    { name: 'New Zealand', code: 'NZ' },
+    { name: 'Azerbaijan', code: 'AZ' },
+    { name: 'Slovenia', code: 'SI' },
+    { name: 'Lithuania', code: 'LT' },
+    { name: 'Armenia', code: 'AM' },
+    { name: 'Bosnia and Herzegovina', code: 'BA' },
+    { name: 'Oman', code: 'OM' },
+    { name: 'North Macedonia', code: 'MK' },
+    { name: 'Slovakia', code: 'SK' },
+    { name: 'Cuba', code: 'CU' },
+    { name: 'Hong Kong', code: 'HK' },
+    { name: 'Cameroon', code: 'CM' },
+    { name: 'Afghanistan', code: 'AF' },
+    { name: 'Bulgaria', code: 'BG' },
+    { name: 'Tunisia', code: 'TN' },
+    { name: 'Ghana', code: 'GH' },
+    { name: 'Ivory Coast', code: 'CI' },
+    { name: 'Cyprus', code: 'CY' },
+    { name: 'Djibouti', code: 'DJ' },
+    { name: 'Latvia', code: 'LV' },
+    { name: 'Andorra', code: 'AD' },
+    { name: 'Lebanon', code: 'LB' },
+    { name: 'Costa Rica', code: 'CR' },
+    { name: 'Niger', code: 'NE' },
+    { name: 'Burkina Faso', code: 'BF' },
+    { name: 'Albania', code: 'AL' },
+    { name: 'Kyrgyzstan', code: 'KG' },
+    { name: 'Nigeria', code: 'NG' },
+    { name: 'Bolivia', code: 'BO' },
+    { name: 'Guinea', code: 'GN' },
+    { name: 'Uruguay', code: 'UY' },
+    { name: 'Honduras', code: 'HN' },
+    { name: 'San Marino', code: 'SM' },
+    { name: 'Palestine', code: 'PS' },
+    { name: 'Malta', code: 'MT' },
+    { name: 'Taiwan', code: 'TW' },
+    { name: 'Jordan', code: 'JO' },
+    { name: 'Réunion', code: 'RE' },
+    { name: 'Georgia', code: 'GE' },
+    { name: 'Senegal', code: 'SN' },
+    { name: 'Mauritius', code: 'MU' },
+    { name: 'DRC', code: 'CD' },
+    { name: 'Montenegro', code: 'ME' },
+    { name: 'Isle of Man', code: 'IM' },
+    { name: 'Sri Lanka', code: 'LK' },
+    { name: 'Mayotte', code: 'YT' },
+    { name: 'Kenya', code: 'KE' },
+    { name: 'Vietnam', code: 'VN' },
+    { name: 'Guatemala', code: 'GT' },
+    { name: 'Venezuela', code: 'VE' },
+    { name: 'Mali', code: 'ML' },
+    { name: 'Paraguay', code: 'PY' },
+    { name: 'El Salvador', code: 'SV' },
+    { name: 'Jamaica', code: 'JM' },
+    { name: 'Tanzania', code: 'TZ' },
+    { name: 'Martinique', code: 'MQ' },
+    { name: 'Guadeloupe', code: 'GP' },
+    { name: 'Rwanda', code: 'RW' },
+    { name: 'Congo', code: 'CG' },
+    { name: 'Brunei', code: 'BN' },
+    { name: 'Somalia', code: 'SO' },
+    { name: 'Gibraltar', code: 'GI' },
+    { name: 'Cambodia', code: 'KH' },
+    { name: 'Madagascar', code: 'MG' },
+    { name: 'Trinidad and Tobago', code: 'TT' },
+    { name: 'Gabon', code: 'GA' },
+    { name: 'Myanmar', code: 'MM' },
+    { name: 'Ethiopia', code: 'ET' },
+    { name: 'Aruba', code: 'AW' },
+    { name: 'French Guiana', code: 'GF' },
+    { name: 'Monaco', code: 'MC' },
+    { name: 'Bermuda', code: 'BM' },
+    { name: 'Togo', code: 'TG' },
+    { name: 'Liechtenstein', code: 'LI' },
+    { name: 'Equatorial Guinea', code: 'GQ' },
+    { name: 'Liberia', code: 'LR' },
+    { name: 'Barbados', code: 'BB' },
+    { name: 'Sudan', code: 'SD' },
+    { name: 'Guyana', code: 'GY' },
+    { name: 'Zambia', code: 'ZM' },
+    { name: 'Cabo Verde', code: 'CV' },
+    { name: 'Cayman Islands', code: 'KY' },
+    { name: 'Bahamas', code: 'BS' },
+    { name: 'French Polynesia', code: 'PF' },
+    { name: 'Uganda', code: 'UG' },
+    { name: 'Maldives', code: 'MV' },
+    { name: 'Libya', code: 'LY' },
+    { name: 'Guinea-Bissau', code: 'GW' },
+    { name: 'Macao', code: 'MO' },
+    { name: 'Haiti', code: 'HT' },
+    { name: 'Syria', code: 'SY' },
+    { name: 'Eritrea', code: 'ER' },
+    { name: 'Mozambique', code: 'MZ' },
+    { name: 'Saint Martin', code: 'MF' },
+    { name: 'Benin', code: 'BJ' },
+    { name: 'Chad', code: 'TD' },
+    { name: 'Mongolia', code: 'MN' },
+    { name: 'Nepal', code: 'NP' },
+    { name: 'Sierra Leone', code: 'SL' },
+    { name: 'Zimbabwe', code: 'ZW' },
+    { name: 'Angola', code: 'AO' },
+    { name: 'Antigua and Barbuda', code: 'AG' },
+    { name: 'Eswatini', code: 'SZ' },
+    { name: 'Botswana', code: 'BW' },
+    { name: 'Timor-Leste', code: 'TL' },
+    { name: 'Belize', code: 'BZ' },
+    { name: 'New Caledonia', code: 'NC' },
+    { name: 'Malawi', code: 'MW' },
+    { name: 'Fiji', code: 'FJ' },
+    { name: 'Dominica', code: 'DM' },
+    { name: 'Namibia', code: 'NA' },
+    { name: 'Saint Lucia', code: 'LC' },
+    { name: 'Grenada', code: 'GD' },
+    { name: 'Saint Kitts and Nevis', code: 'KN' },
+    { name: 'CAR', code: 'CF' },
+    { name: 'St. Vincent Grenadines', code: 'VC' },
+    { name: 'Turks and Caicos', code: 'TC' },
+    { name: 'Falkland Islands', code: 'FK' },
+    { name: 'Greenland', code: 'GL' },
+    { name: 'Montserrat', code: 'MS' },
+    { name: 'Seychelles', code: 'SC' },
+    { name: 'Suriname', code: 'SR' },
+    { name: 'Nicaragua', code: 'NI' },
+    { name: 'Gambia', code: 'GM' },
+    { name: 'Vatican City', code: 'VA' },
+    { name: 'Mauritania', code: 'MR' },
+    { name: 'Papua New Guinea', code: 'PG' },
+    { name: 'St. Barth', code: 'BL' },
+    { name: 'Burundi', code: 'BI' },
+    { name: 'Bhutan', code: 'BT' },
+    { name: 'Caribbean Netherlands', code: 'BQ' },
+    { name: 'British Virgin Islands', code: 'VG' },
+    { name: 'Sao Tome and Principe', code: 'ST' },
+    { name: 'South Sudan', code: 'SD' },
+    { name: 'Anguilla', code: 'AI' },
+    { name: 'Saint Pierre Miquelon', code: 'PM' },
+    { name: 'Yemen', code: 'YE' },
+    { name: 'China', code: 'CN' }
+];
+
+// SELECT SEARCH COUNTRY ELEMENTS
+const search_country_element = document.querySelector(".search-country");
+const country_list_element = document.querySelector(".country-list");
+const chang_country_btn = document.querySelector(".change-country");
+const close_list_btn = document.querySelector(".close");
+const input = document.getElementById('search-input')
+
+// CREATE TE COUNTRY LIST
+function createCountryList(){
+    const num_countries = country_list.length;
+
+    let i = 0, ul_list_id;
+
+    country_list.forEach( (country, index) => {
+        if( index % Math.ceil(num_countries/num_of_ul_lists) == 0){
+            ul_list_id = `list-${i}`;
+            country_list_element.innerHTML += `<ul id='${ul_list_id}'></ul>`;
+            i++;
+        }
+
+        document.getElementById(`${ul_list_id}`).innerHTML += `
+            <li onclick="fetchData('${country.name}')" id="${country.name}">
+            ${country.name}
+            </li>
+        `;
+    })
+}
+
+let num_of_ul_lists = 3;
+createCountryList();
+
+// SHOW/HIDE THE COUTRY LIST ON CLICK EVENT
+chang_country_btn.addEventListener("click", function(){
+    input.value = "";
+    resetCountryList();
+    search_country_element.classList.toggle("hide");
+    search_country_element.classList.add("fadeIn");
+});
+
+close_list_btn.addEventListener("click", function(){
+    search_country_element.classList.toggle("hide");
+});
+
+country_list_element.addEventListener("click", function(){
+    search_country_element.classList.toggle("hide");
+});
+
+// COUNTRY FILTER
+/* input event fires up whenever the value of the input changes */
+input.addEventListener("input", function(){
+    let value = input.value.toUpperCase();
+
+    country_list.forEach( country => {
+        if( country.name.toUpperCase().startsWith(value)){
+            document.getElementById(country.name).classList.remove("hide");
+        }else{
+            document.getElementById(country.name).classList.add("hide");
+        }
+    })
+})
+
+// RESET COUNTRY LIST (SHOW ALL THE COUNTRIES )
+function resetCountryList(){
+    country_list.forEach( country => {
+        document.getElementById(country.name).classList.remove("hide");
+    })
+}
+    </script>
+    <script >
+      const country_name_element = document.querySelector(".country .name");
+const total_cases_element = document.querySelector(".total-cases .value");
+const new_cases_element = document.querySelector(".total-cases .new-value");
+const recovered_element = document.querySelector(".recovered .value");
+const new_recovered_element = document.querySelector(".recovered .new-value");
+const deaths_element = document.querySelector(".deaths .value");
+const new_deaths_element = document.querySelector(".deaths .new-value");
+
+const ctx = document.getElementById("axes_line_chart").getContext("2d");
+
+// APP VARIABLES
+let app_data = [],
+  cases_list = [],
+  recovered_list = [],
+  deaths_list = [],
+  deaths = [],
+  formatedDates = [];
+
+// GET USERS COUNTRY CODE
+let country_code = geoplugin_countryCode();
+let user_country;
+country_list.forEach((country) => {
+  if (country.code == country_code) {
+    user_country = country.name;
+  }
+});
+
+/* ---------------------------------------------- */
+/*                     FETCH API                  */
+/* ---------------------------------------------- */
+function fetchData(country) {
+  user_country = country;
+  country_name_element.innerHTML = "Loading...";
+
+  (cases_list = []),
+    (recovered_list = []),
+    (deaths_list = []),
+    (dates = []),
+    (formatedDates = []);
+
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  const api_fetch = async (country) => {
+    await fetch(
+      "https://api.covid19api.com/total/country/" +
+        country +
+        "/status/confirmed",
+      requestOptions
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        data.forEach((entry) => {
+          dates.push(entry.Date);
+          cases_list.push(entry.Cases);
+        });
+      });
+
+    await fetch(
+      "https://api.covid19api.com/total/country/" +
+        country +
+        "/status/recovered",
+      requestOptions
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        data.forEach((entry) => {
+          recovered_list.push(entry.Cases);
+        });
+      });
+
+    await fetch(
+      "https://api.covid19api.com/total/country/" + country + "/status/deaths",
+      requestOptions
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        data.forEach((entry) => {
+          deaths_list.push(entry.Cases);
+        });
+      });
+
+    updateUI();
+  };
+
+  api_fetch(country);
+}
+
+fetchData(user_country);
+
+// UPDATE UI FUNCTION
+function updateUI() {
+  updateStats();
+  axesLinearChart();
+}
+
+function updateStats() {
+  const total_cases = cases_list[cases_list.length - 1];
+  const new_confirmed_cases = total_cases - cases_list[cases_list.length - 2];
+
+  const total_recovered = recovered_list[recovered_list.length - 1];
+  const new_recovered_cases =
+    total_recovered - recovered_list[recovered_list.length - 2];
+
+  const total_deaths = deaths_list[deaths_list.length - 1];
+  const new_deaths_cases = total_deaths - deaths_list[deaths_list.length - 2];
+
+  country_name_element.innerHTML = user_country;
+  total_cases_element.innerHTML = total_cases;
+  new_cases_element.innerHTML = `+${new_confirmed_cases}`;
+  recovered_element.innerHTML = total_recovered;
+  new_recovered_element.innerHTML = `+${new_recovered_cases}`;
+  deaths_element.innerHTML = total_deaths;
+  new_deaths_element.innerHTML = `+${new_deaths_cases}`;
+
+  // format dates
+  dates.forEach((date) => {
+    formatedDates.push(formatDate(date));
+  });
+}
+
+// UPDATE CHART
+let my_chart;
+function axesLinearChart() {
+  if (my_chart) {
+    my_chart.destroy();
+  }
+
+  my_chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: "Cases",
+          data: cases_list,
+          fill: false,
+          borderColor: "#FFF",
+          backgroundColor: "#FFF",
+          borderWidth: 1,
+        },
+        {
+          label: "Recovered",
+          data: recovered_list,
+          fill: false,
+          borderColor: "#009688",
+          backgroundColor: "#009688",
+          borderWidth: 1,
+        },
+        {
+          label: "Deaths",
+          data: deaths_list,
+          fill: false,
+          borderColor: "#f44336",
+          backgroundColor: "#f44336",
+          borderWidth: 1,
+        },
+      ],
+      labels: formatedDates,
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+}
+
+// FORMAT DATES
+const monthsNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+function formatDate(dateString) {
+  let date = new Date(dateString);
+
+  return `${date.getDate()} ${monthsNames[date.getMonth() - 1]}`;
+}
+
+    </script>
+   <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+     <script src="js/bootstrap.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
